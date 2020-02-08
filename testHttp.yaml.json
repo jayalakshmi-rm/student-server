@@ -1,0 +1,39 @@
+{
+  "config": {
+    "target": "http://localhost:3000",
+    "phases": [
+      {
+        "duration": 10,
+        "arrivalRate": 40
+      }
+    ],
+    "http": {
+      "timeout": 5
+    }
+  },
+  "scenarios": [
+    {
+      "flow": [
+        {
+          "loop": [
+            {
+              "get": {
+                "url": "/api/login/signup",
+                "capture": [
+                  {
+                    "regexp": "[^]*",
+                    "as": "msg"
+                  }
+                ]
+              }
+            },
+            {
+              "log": "msg= {{msg}}"
+            }
+          ],
+          "count": 10
+        }
+      ]
+    }
+  ]
+}

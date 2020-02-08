@@ -1,0 +1,20 @@
+config:
+  target: http://localhost:3000
+  phases:
+    - duration: 10
+      arrivalRate: 40
+  http:
+    # Responses have to be sent within 5 seconds or the request will be aborted
+    timeout: 5
+scenarios:
+  - flow:
+      - loop:
+          - get:
+              # the value of count comes from a JavaScript function 'setCount' declared in count.js   
+              url: "/api/login/signup"
+              capture:
+              # capturing responce using reg expression
+                - regexp: "[^]*"
+                  as: "msg"
+          - log: "msg= {{msg}}"
+        count: 10
